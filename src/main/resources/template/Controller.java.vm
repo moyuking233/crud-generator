@@ -1,0 +1,96 @@
+package ${package}.${moduleName}.controller;
+
+import java.util.Arrays;
+import java.util.Map;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+
+import ${package}.${moduleName}.entity.${className};
+import ${package}.${moduleName}.service.I${className}Service;
+import ${mainPath}.common.utils.PageUtils;
+import ${mainPath}.common.utils.R;
+
+
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+@Slf4j
+@Api(tags="${className}Controller的接口")
+@RestController
+@RequestMapping("api/${moduleName}/${pathName}")
+public class ${className}Controller {
+    @Autowired
+    private I${className}Service ${classname}Service;
+
+
+    @GetMapping("/all")
+    @ApiOperation("获取全部")
+    public R getAll(){
+        return R.ok().put("data", ${classname}Service.getAll());
+    }
+
+
+    /**
+     * 列表
+     */
+    @GetMapping("/page")
+    @ApiOperation(value="按页获取",notes = "第一个参数page表示第几页，第二个参数limit表示每页几条记录")
+    public R list(@RequestParam Map<String, Object> params){
+        PageUtils page = ${classname}Service.queryPage(params);
+
+        return R.ok().put("data", page);
+    }
+
+
+    /**
+     * 信息
+     */
+    @GetMapping("/info/{${pk.attrname}}")
+    @ApiOperation(value="根据主键获取")
+    public R info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
+		${className} ${classname} = ${classname}Service.getById(${pk.attrname});
+
+        return R.ok().put("data", ${classname});
+    }
+
+    /**
+     * 保存
+     */
+    @PostMapping("/save")
+    @ApiOperation(value = "添加")
+    public R save(@RequestBody ${className} ${classname}){
+        if (${classname}Service.save(${classname}))return R.ok("保存成功");
+        return R.error("保存失败");
+    }
+
+    /**
+     * 修改
+     */
+    @PutMapping("/update")
+    @ApiOperation(value = "修改")
+    public R update(@RequestBody ${className} ${classname}){
+        if (${classname}Service.updateById(${classname}))return R.ok("修改成功");
+        return R.error("修改失败");
+    }
+
+    /**
+     * 删除
+     */
+    @DeleteMapping("/delete")
+    @ApiOperation(value = "删除")
+    public R delete(${pk.attrType}[] ids){
+        if (${classname}Service.removeByIds(Arrays.asList(ids)))return R.ok("删除成功");
+        return R.error("删除失败");
+    }
+
+}

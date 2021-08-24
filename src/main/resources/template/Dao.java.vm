@@ -1,0 +1,20 @@
+package ${package}.${moduleName}.dao;
+
+import ${package}.${moduleName}.entity.${className};
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
+import java.util.List;
+import org.apache.ibatis.annotations.Select;
+
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+@Mapper
+public interface ${className}Dao extends BaseMapper<${className}> {
+    @Select("select * from ${tableName} where is_deleted = 0")
+    List<${className}> getAll();
+}
