@@ -310,7 +310,7 @@ public class GenUtils {
         }
 
         if (template.contains("Dao.java.vm")) {
-            return packagePath + "dao" + File.separator + className + "Mapper.java";
+            return packagePath + "dao" + File.separator + className + "Dao.java";
         }
 
         if (template.contains("Service.java.vm")) {
