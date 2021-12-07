@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import ${package}.${moduleName}.entity.${className};
 import ${package}.${moduleName}.service.I${className}Service;
 import ${mainPath}.common.utils.PageUtils;
-import ${mainPath}.common.utils.R;
+import ${mainPath}.common.utils.Result;
 
 
 
@@ -35,8 +35,8 @@ public class ${className}Controller {
 
     @GetMapping("/all")
     @ApiOperation("获取全部")
-    public R getAll(){
-        return R.ok().put("data", ${classname}Service.getAll());
+    public Result<List<Book>> getAll(){
+        return Result.ok(${classname}Service.getAll());
     }
 
 
@@ -45,10 +45,10 @@ public class ${className}Controller {
      */
     @GetMapping("/page")
     @ApiOperation(value="按页获取",notes = "第一个参数page表示第几页，第二个参数limit表示每页几条记录")
-    public R list(@RequestParam Map<String, Object> params){
+    public Result<PageUtils> list(@RequestParam Map<String, Object> params){
         PageUtils page = ${classname}Service.queryPage(params);
 
-        return R.ok().put("data", page);
+        return Result.ok(page);
     }
 
 
@@ -57,10 +57,10 @@ public class ${className}Controller {
      */
     @GetMapping("/info/{${pk.attrname}}")
     @ApiOperation(value="根据主键获取")
-    public R info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
+    public Result<${className}> info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
 		${className} ${classname} = ${classname}Service.getById(${pk.attrname});
 
-        return R.ok().put("data", ${classname});
+        return Result.ok(${classname});
     }
 
     /**
@@ -68,9 +68,9 @@ public class ${className}Controller {
      */
     @PostMapping("/save")
     @ApiOperation(value = "添加")
-    public R save(@RequestBody ${className} ${classname}){
-        if (${classname}Service.save(${classname}))return R.ok("保存成功");
-        return R.error("保存失败");
+    public Result save(@RequestBody ${className} ${classname}){
+        if (${classname}Service.save(${classname}))return Result.ok("保存成功");
+        return Result.error("保存失败");
     }
 
     /**
@@ -78,9 +78,9 @@ public class ${className}Controller {
      */
     @PutMapping("/update")
     @ApiOperation(value = "修改")
-    public R update(@RequestBody ${className} ${classname}){
-        if (${classname}Service.updateById(${classname}))return R.ok("修改成功");
-        return R.error("修改失败");
+    public Result update(@RequestBody ${className} ${classname}){
+        if (${classname}Service.updateById(${classname}))return Result.ok("修改成功");
+        return Result.error("修改失败");
     }
 
     /**
@@ -88,9 +88,9 @@ public class ${className}Controller {
      */
     @DeleteMapping("/delete")
     @ApiOperation(value = "删除")
-    public R delete(${pk.attrType}[] ids){
-        if (${classname}Service.removeByIds(Arrays.asList(ids)))return R.ok("删除成功");
-        return R.error("删除失败");
+    public Result delete(${pk.attrType}[] ids){
+        if (${classname}Service.removeByIds(Arrays.asList(ids)))return Result.ok("删除成功");
+        return Result.error("删除失败");
     }
 
 }
