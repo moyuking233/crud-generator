@@ -35,7 +35,7 @@ public class ${className}Controller {
 
     @GetMapping("/all")
     @ApiOperation("获取全部")
-    public Result<List<Book>> getAll(){
+    public Result<List<${className}>> getAll(){
         return Result.ok(${classname}Service.getAll());
     }
 
