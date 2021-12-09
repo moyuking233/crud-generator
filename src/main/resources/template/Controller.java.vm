@@ -47,7 +47,6 @@ public class ${className}Controller {
     @ApiOperation(value="按页获取",notes = "第一个参数page表示第几页，第二个参数limit表示每页几条记录")
     public Result<PageUtils> list(@RequestParam Map<String, Object> params){
         PageUtils page = ${classname}Service.queryPage(params);
-
         return Result.ok(page);
     }
 
@@ -59,7 +58,6 @@ public class ${className}Controller {
     @ApiOperation(value="根据主键获取")
     public Result<${className}> info(@PathVariable("${pk.attrname}") ${pk.attrType} ${pk.attrname}){
 		${className} ${classname} = ${classname}Service.getById(${pk.attrname});
-
         return Result.ok(${classname});
     }
 
